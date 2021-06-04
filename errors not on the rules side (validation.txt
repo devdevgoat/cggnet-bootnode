@@ -1,0 +1,11 @@
+errors not on the rules side (validation) but when we execute a rule successfully one day, but then after ds refreshes the data, an error occures
+saying the table cannot be reimported 
+
+kunnr, aland, tatyp taxkd
+
+bp_rel
+kna1, knvk join on lefouter kunner = kunnr
+hana_staging.is_mdg by defult 
+
+exception loging was in a differ folder
+is_mdg
