@@ -7,4 +7,4 @@ mkdir data
 geth init --datadir data genesis.json
 
 alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
-./start-cggnet.sh wanip
+./start-cggnet.sh ${BASH_ALIASES[wanip]}
