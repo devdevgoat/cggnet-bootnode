@@ -1,4 +1,6 @@
 @echo off
+winget install  Ethereum.geth
+if %ERRORLEVEL% EQU 0 Echo Geth installed successfully.
 REM Change address to login with a different id
 REM Known Admins:
 REM 0x50FDf5ef99412268Cfa614fbd8039F786A36dE09: Culver

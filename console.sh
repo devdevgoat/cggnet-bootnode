@@ -1,0 +1,1 @@
+geth attach $(cat ipc.txt)

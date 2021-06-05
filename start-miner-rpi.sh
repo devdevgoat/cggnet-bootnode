@@ -49,6 +49,8 @@ echo "Starting miner. You should be prompted for a password, if this is a new ac
 echo "geth --datadir data --networkid 201601988 --nodiscover --unlock ${addr} --mine --miner.etherbase ${addr} console" > miner-restart.sh
 chmod +x miner-restart.sh
 
+echo $(pwd)"/data/geth.ipc" > ipc.txt
+
 geth init --datadir data genesis.json
 # geth --datadir data --networkid 201601988 --http --http.port 6437 --http.corsdomain "*" --nodiscover --http.api personal,eth,net,web3,admin,clique
 # this boot node should not change since we've stored the key for resuse in bootnode.key and is
