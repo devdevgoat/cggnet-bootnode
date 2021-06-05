@@ -48,5 +48,7 @@ fi
 echo "Starting miner. You should be prompted for a password, if this is a new account, copy and paste the one above."
 echo "geth --datadir data --networkid 201601988 --nodiscover --unlock ${addr} --mine console" > miner-restart.sh
 chmod +x miner-restart.sh
+
+geth init --datadir data genesis.json
 # geth --datadir data --networkid 201601988 --http --http.port 6437 --http.corsdomain "*" --nodiscover --http.api personal,eth,net,web3,admin,clique
 geth --datadir data --networkid 201601988 --nodiscover --unlock ${addr} --mine console
