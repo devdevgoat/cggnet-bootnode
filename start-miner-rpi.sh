@@ -7,26 +7,31 @@
  
 geth init --datadir data genesis.json
 PS3="Who dis? If you already have an account, start geth manually."
-select address in Russ Culver Twesh CreateNew
-case $address in 
-    Russ)
+select name in Russ Culver Twesh CreateNew; do
+case $REPLY in 
+    1)
         addr="0xcF56De0c188a723063C8892979854Bd2c595dAaB"
         ;;
-    Culver)
+    2)
         addr="0x50FDf5ef99412268Cfa614fbd8039F786A36dE09"
         ;;
-    Twesh)
+    3)
         addr="0x24C9CC9F8e25dd0C34DdaA6569F545883c41dFA0"
         ;;
-    CreateNew)
+    4)
         addr="0x0"
         ;;
     *)
         echo "Invalid Response"
         exit
         ;;
-esac 
+esac
+ if [[ -n $addr ]]; then
+        echo ADDRESS is $addr
+        break
+    fi
 done 
+
 if [[ $addr -eq "0x0" ]]
 then 
     # need to create an account
