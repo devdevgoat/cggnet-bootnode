@@ -15,7 +15,7 @@ echo "Created account:"${addr}
 
 #used for aws ip lookup
 wanip=$(dig +short myip.opendns.com @resolver1.opendns.com)
-runcmd='geth --datadir minerdata --networkid 201601988 --nodiscover --verbosity 6 --unlock "'${addr}'" --password ./password.txt --bootnodes "enode://f29b759ca8c6d65b57fdce8180c0ac226b1802a23ed6aaf7273b39ecd135192574e2754211c5e1a390df53d7d0f229d3cdb23c4a61cc9a29d1a15923f0b05eb6@35.173.216.249:30303?discport=0"'
+runcmd='geth --datadir minerdata --networkid 201601988 --nodiscover --port 30304 --verbosity 6 --unlock "'${addr}'" --password ./password.txt --bootnodes "enode://f29b759ca8c6d65b57fdce8180c0ac226b1802a23ed6aaf7273b39ecd135192574e2754211c5e1a390df53d7d0f229d3cdb23c4a61cc9a29d1a15923f0b05eb6@[::]:30303?discport=0'
 #saved to rerun on reboot
 echo ${runcmd}>restart-master-miner.sh
 chmod +x restart-master-miner.sh
