@@ -33,3 +33,11 @@
         - update authorized keys
             ```ssh -i primaryPersonal.pem ubuntu@[node1.ip.addr.here] 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa.pub```
             ```ssh -i primaryPersonal.pem ubuntu@[node1.ip.addr.here] 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa.pub```
+
+## Setup nodes
+    - ssh to each node and run the following:
+        ```#!bash
+        curl -L https://raw.githubusercontent.com/devdevgoat/cggnet-bootnode/main/puppeth/init_node.sh > init_node.sh
+        chmod +x init_node.sh
+        ./init_node.sh
+        ```

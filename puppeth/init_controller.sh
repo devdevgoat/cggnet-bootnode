@@ -1,18 +1,10 @@
 #!/usr/bin/bash
 sudo add-apt-repository -y ppa:ethereum/ethereum
 sudo apt-get update
-sudo apt-get install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common \
-    ethereum \
-    docker.io \
-    docker-compose
+sudo apt-get upgrade
+sudo apt-get install -y ethereum curl
 
-sudo usermod -a -G docker $USER
-
-# generate a password for this signer
+# generate a password for the new accounts
 tr -dc A-Za-z0-9 </dev/urandom | head -c 13  > ~/passfile
 # generate account
 sudo mkdir ~/accts
