@@ -15,8 +15,7 @@ sudo usermod -a -G docker $USER
 # generate a password for this signer
 tr -dc A-Za-z0-9 </dev/urandom | head -c 13  > ~/passfile
 # generate account
-mkdir ~/accts
-touch ~/passfile
+sudo mkdir ~/accts
 for ((n=0;n<10;n++)); do sudo geth --datadir ~/accts account new --password ~/passfile >> account_log.txt; done
 
 # note to user to copy acct
