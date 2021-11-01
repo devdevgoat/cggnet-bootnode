@@ -85,7 +85,7 @@ Great walkthrough there: https://collincusce.medium.com/using-puppeth-to-manuall
     ### Ethstats
         - blockitechs
         - 4 (deploy)
-        - 1 (eth stats)
+        - 1 (ethstats)
         - 1 (another server)
         - *paste ip address for node 1*
         - yes (fingerprint?)
@@ -95,8 +95,8 @@ Great walkthrough there: https://collincusce.medium.com/using-puppeth-to-manuall
         (you can verify now at ip.address:8080)
     ### Bootnode
         - 4
-        - 2
-        - 2
+        - # (Deploy new network component)
+        - 2 (Bootnode)
         - 1
         - /home/ubuntu/blockitechs/bootnode (data folder)
         - 30305 (port)
@@ -106,15 +106,15 @@ Great walkthrough there: https://collincusce.medium.com/using-puppeth-to-manuall
 
     ## Sealer Nodes (repeat for each sealer)
         - 4
-        - 3
-        - 3
-        - 2
-        - ipaddress to sealer node 0
+        - # (Deploy new network component)
+        - 3 (sealer)
+        - # (connect another server)
+        - ipaddress to sealer node #
         - /home/ubuntu/blockitechs/sealernode (data folder)
         - enter (port)
         - enter (peer)
         - enter (light peers)
-        - blockitechs_sealer_0
+        - blockitechs_sealer_#
         - paste json from ealier
         - paste value in ~/passfile 
         - enter (empty blocks mgas)
