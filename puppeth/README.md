@@ -19,7 +19,7 @@
         ```#!bash
         curl -L https://raw.githubusercontent.com/devdevgoat/cggnet-bootnode/main/puppeth/init_controller.sh > init_controller.sh
         chmod +x init_controller.sh
-        sudo ./init_controller.sh
+        ./init_controller.sh
         ```
     - Setup cross-intance communication 
         - running the following from local machine:
