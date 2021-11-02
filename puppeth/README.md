@@ -120,3 +120,23 @@ Great walkthrough there: https://collincusce.medium.com/using-puppeth-to-manuall
         - enter (empty blocks mgas)
         - enter (full blocks)
         - 0.0001 (signer)
+
+    ## Explorer Nodes (repeat for each sealer)
+        - 4
+        - # (Deploy new network component)
+        - 4 (explorer)
+        - # (connect another server)
+        - ipaddress to sealer node #
+        - /home/ubuntu/blockitechs/explorer (data folder)
+        - /home/ubuntu/blockitechs/postgres (pg folder)
+        - enter (port.. probaly shouldn't share with )
+        - blockitechs_explorer
+        
+    ## stand up rpc accesible node
+        - get commands from http://[bootnode]:8081/#geth for light node
+        - ssh into controller
+        - run 
+            ```
+            geth --datadir=$HOME/.blockitechs init blockitechs.json
+            geth --networkid=112 --datadir=$HOME/.blockitechs --syncmode=light --ethstats='yournode:p@ssw0rd@54.164.123.62:8080' --bootnodes=enode://05b31f2c98c93b8c59294a7d37a43e7063c7d59ad0bd2160e7c7d094a1c154bc1d8a44fe4f6b46e3b7016030bee99c8e53e72fa58444160dfa295cbfa15dd1ad@54.164.123.62:30305 --http --http.addr 0.0.0.0 --http.port 8545
+```
