@@ -12,7 +12,7 @@ Great walkthrough there: https://collincusce.medium.com/using-puppeth-to-manuall
     - 80
     - 443
     - 22
-- Note all public ip addresses 
+- Note your controller's PUBLIC ip and your other nodes PRIVATE ip addresses 
 - Note your .pem file for ssh
 
 ## 2 Setup controller
@@ -32,9 +32,11 @@ Great walkthrough there: https://collincusce.medium.com/using-puppeth-to-manuall
         - generate rsa, leave all blank
             ```ssh-keygen```
         - update authorized keys
-            ```ssh -i primaryPersonal.pem ubuntu@[bootnode.ip.addr.here] 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa.pub```
-            ```ssh -i primaryPersonal.pem ubuntu@[signer0.ip.addr.here] 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa.pub```
-            ```ssh -i primaryPersonal.pem ubuntu@[signer1.ip.addr.here] 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa.pub```
+            ```ssh -i primaryPersonal.pem ubuntu@[node.ip.here.0] 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
+            ssh -i primaryPersonal.pem ubuntu@[signer0.ip.addr.here] 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
+            ssh -i primaryPersonal.pem ubuntu@[signer1.ip.addr.here] 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
+            ssh -i primaryPersonal.pem ubuntu@[signer1.ip.addr.here] 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
+            ssh -i primaryPersonal.pem ubuntu@172.30.4.194 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa.pub```
 
 ## Setup nodes
     - ssh to each node and run the following:
@@ -132,11 +134,38 @@ Great walkthrough there: https://collincusce.medium.com/using-puppeth-to-manuall
         - enter (port.. probaly shouldn't share with )
         - blockitechs_explorer
         
+    ## START MINING
+        - from bootnode:
+        ```
+        docker exec -it <container_id> geth attach ipc:/root/.ethereum/geth.ipc
+        add the node peers manually?
+        ```
     ## stand up rpc accesible node
+        - none of the puppeth nodes support http/rpc which is required for connecting a wallet. 
+            we can stand up a new node, or jsut use our controller node.
         - get commands from http://[bootnode]:8081/#geth for light node
         - ssh into controller
         - run 
             ```
-            geth --datadir=$HOME/.blockitechs init blockitechs.json
-            geth --networkid=112 --datadir=$HOME/.blockitechs --syncmode=light --ethstats='yournode:p@ssw0rd@54.164.123.62:8080' --bootnodes=enode://05b31f2c98c93b8c59294a7d37a43e7063c7d59ad0bd2160e7c7d094a1c154bc1d8a44fe4f6b46e3b7016030bee99c8e53e72fa58444160dfa295cbfa15dd1ad@54.164.123.62:30305 --http --http.addr 0.0.0.0 --http.port 8545
-```
+            geth --datadir=$HOME/.b2 init b2.json
+            geth --networkid=112 --port 30304 --datadir=$HOME/.b2 --ethstats='controller-rpc:p@ssw0rd@172.30.4.81:8080' --bootnodes=enode://05b31f2c98c93b8c59294a7d37a43e7063c7d59ad0bd2160e7c7d094a1c154bc1d8a44fe4f6b46e3b7016030bee99c8e53e72fa58444160dfa295cbfa15dd1ad@172.30.4.81:30303 --http --http.addr 0.0.0.0 --http.port 8545     
+        ```
+    
+    # Verify rpc is working
+        - run against controller node from your local machine
+        ```
+        curl -X POST -H 'Content-Type: application/json' -d '{"jsonrpc":"2.0","method":"eth_blockNumber","id":1}' 54.227.206.150:8545
+        ```
+
+    # explorer not working
+        - going to have to setup manually: https://github.com/gkaemmer/poa-explorer
+
+
+RUN   echo 'geth --cache 512 init /genesis.json' > geth.sh &&        echo 'mkdir -p /root/.ethereum/keystore/ && cp /signer.json /root/.ethereum/keystore/' >> geth.sh &&   echo $'exec geth --networkid 112 --cache 512 --port 30303 --nat extip:172.30.4.113 --maxpeers 50  --ethstats \'sealer1:p@ssw0rd@172.30.4.194\' --bootnodes enode://05b31f2c98c93b8c59294a7d37a43e7063c7d59ad0bd2160e7c7d094a1c154bc1d8a44fe4f6b46e3b7016030bee99c8e53e72fa58444160dfa295cbfa15dd1ad@172.30.4.81:30303  --unlock 0 --password /signer.pass --mine --miner.gastarget 7500000 --miner.gaslimit 10000000 --miner.gasprice 100000' >> geth.sh
+
+# Troubleshooting
+
+ - No idea how to deal with ssh loosing connections...
+ - if you get error:
+ ```Named volume "home/ubuntu/blockitechs/explorer:/opt/app/.ethereum:rw" is used in service "explorer" but no declaration was found in the volumes section.```
+    - log into the bootnode and delete the named folder (explorer)
